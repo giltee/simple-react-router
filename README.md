@@ -1,3 +1,180 @@
+# Sample React Project
+
+## Make sure we have nodejs / create react app
+nvm?
+npx create-react-app project-name
+
+## packages
+npm i react-router-dom
+npm install -g serve
+
+## index.js
+```
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Root from './routes/root';
+import About from './routes/about';
+import Products from './routes/products';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root/>,
+  },
+  {
+    path: "/about",
+    element: <About/>,
+  },
+  {
+    path: "/products",
+    element: <Products/>,
+  },
+]);
+
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+```
+
+## create /src/routes
+
+### src/routes/root.jsx
+```
+import { Link, json } from "react-router-dom";
+import Nav from "../components/nav";
+import data from "../data/data.json"
+
+export default function Root() {
+
+    return(
+        <div>
+            <h1>Hello World</h1>
+            <Nav/>
+        </div>
+    )
+}
+```
+
+### src/routes/about.jsx
+```
+import { Link } from "react-router-dom";
+import Nav from "../components/nav";
+import data from '../data/data.json';
+import { useState } from "react";
+
+export default function Root() {
+
+    const [lang, setLang] = useState(data.en)
+
+    return(
+        <div>
+            <h1>About</h1>
+            <Nav/>
+            {
+                lang.map((person => <div key={person.id}>
+                    <h2>{person.name}</h2>
+                    <p>{person.title}</p>
+                </div>))
+            }
+            <select onChange={(e) => setLang(data[e.currentTarget.value])}>
+                {
+                    Object.keys(data).map(lang => <option val={lang}>{lang}</option>)
+                }
+            </select>
+        </div>
+    )
+}
+```
+
+### src/routes/product.jsx
+```
+import { Link } from "react-router-dom";
+import Nav from "../components/nav";
+import data from "../data/data.json"
+
+export default function Root() {
+    return(
+        <div>
+            <h1>Products</h1>
+            <Nav/>
+        </div>
+    )
+}
+```
+```
+### create /src/components/nav.jsx
+import { Link } from "react-router-dom"
+export default function Nav() {
+    return (
+        <nav>
+            <Link to={'/'}>Home</Link>
+            <Link to={'/about'}>About</Link>
+            <Link to={'/products'}>Products</Link>
+        </nav>
+    )
+}
+```
+
+### data/data.json
+```
+// adding a new language is as simple is just adding a new object key to the top level 
+{
+    "en": [
+        {
+            "id": 1,
+            "name": "gil",
+            "title": "Lead Scientist"
+        },
+        {
+            "id": 2,
+            "name": "Murray",
+            "title": "CEO"
+        }
+    ],
+    "fr": [
+        {
+            "id": 3,
+            "name": "gil",
+            "title": "Scientifique Principal"
+        },
+        {
+            "id": 4,
+            "name": "Murray",
+            "title": "Le CEO"
+        }
+    ],
+    "es": [
+        {
+            "id": 5,
+            "name": "El gilo",
+            "title": "Científico principal"
+        },
+        {
+            "id": 6,
+            "name": "Senior Murray",
+            "title": "El CEO"
+        }
+    ]
+}
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

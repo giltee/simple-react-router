@@ -2,11 +2,15 @@
 
 ## Make sure we have nodejs / create react app
 nvm?
-npx create-react-app project-name
 
+```
+npx create-react-app project-name
+```
 ## packages
+```
 npm i react-router-dom
 npm install -g serve
+```
 
 ## index.js
 ```

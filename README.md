@@ -122,8 +122,10 @@ export default function Root() {
     )
 }
 ```
-```
+
+
 ### create /src/components/nav.jsx
+```
 import { Link } from "react-router-dom"
 export default function Nav() {
     return (
